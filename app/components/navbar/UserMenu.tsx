@@ -8,6 +8,7 @@ import { MenuItem } from "./MenuItem";
 import { useRegisterModal } from "@/app/hooks/useResisterModal";
 import { useLoginModal } from "@/app/hooks/useLoginModal";
 import { SafeUser } from "@/app/types";
+import { useRentModal } from "@/app/hooks/useRentModal";
 
 type UserMenuProps = {
   currentUser?: SafeUser | null;
@@ -16,18 +17,27 @@ type UserMenuProps = {
 export const UserMenu = (props: UserMenuProps) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggleOpen = React.useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
+  const onRent = () => {
+    if (props.currentUser == null) {
+      return loginModal.onOpen();
+    }
+
+    rentModal.onOpen();
+  };
+
   return (
     <div className="relative">
       <div className="flex items-center gap-3">
         <button
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-          onClick={() => {}}
+          onClick={onRent}
         >
           Airbnb your home
         </button>
@@ -50,8 +60,7 @@ export const UserMenu = (props: UserMenuProps) => {
                 <MenuItem onClick={registerModal.onOpen} label="My favorites" />
                 <MenuItem onClick={loginModal.onOpen} label="My reservations" />
                 <MenuItem onClick={loginModal.onOpen} label="My properties" />
-                <MenuItem onClick={loginModal.onOpen} label="Airbnb my home" />
-                <MenuItem onClick={loginModal.onOpen} label="Login" />
+                <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />
                 <MenuItem onClick={signOut} label="Logout" />
               </>
