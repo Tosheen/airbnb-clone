@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useForm, type FieldValues } from "react-hook-form";
 
 import { useRegisterModal } from "@/app/hooks/useResisterModal";
+import { useLoginModal } from "@/app/hooks/useLoginModal";
 import { Modal } from "./Modal";
 import { Heading } from "../Heading";
 import { Input } from "../inputs/Input";
@@ -16,6 +17,7 @@ import { signIn } from "next-auth/react";
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const {
@@ -35,6 +37,8 @@ export const RegisterModal = () => {
 
     try {
       await axios.post("/api/register", data);
+      toast.success("Success!");
+      loginModal.onOpen();
       registerModal.onClose();
     } catch (error) {
       toast.error("Something went wrong");

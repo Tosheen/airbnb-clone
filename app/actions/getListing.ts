@@ -1,5 +1,4 @@
 import prisma from "@/app/libs/prismadb";
-import { userAgent } from "next/server";
 
 type Params = {
   listingId?: string;

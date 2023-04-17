@@ -16,3 +16,7 @@ html, body {
 .leaflet-top {
     z-index: 0 !important;
 }
+
+.rdrMonth, .rdrCalendarWrapper {
+    width: 100% !important;
+}

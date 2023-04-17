@@ -9,6 +9,7 @@ import { useRegisterModal } from "@/app/hooks/useResisterModal";
 import { useLoginModal } from "@/app/hooks/useLoginModal";
 import { SafeUser } from "@/app/types";
 import { useRentModal } from "@/app/hooks/useRentModal";
+import { useRouter } from "next/navigation";
 
 type UserMenuProps = {
   currentUser?: SafeUser | null;
@@ -19,6 +20,7 @@ export const UserMenu = (props: UserMenuProps) => {
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
   const [isOpen, setIsOpen] = React.useState(false);
+  const router = useRouter();
 
   const toggleOpen = React.useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -56,9 +58,15 @@ export const UserMenu = (props: UserMenuProps) => {
           <div className="flex flex-col">
             {props.currentUser != null ? (
               <>
-                <MenuItem onClick={loginModal.onOpen} label="My trips" />
+                <MenuItem
+                  onClick={() => router.push("/trips")}
+                  label="My trips"
+                />
                 <MenuItem onClick={registerModal.onOpen} label="My favorites" />
-                <MenuItem onClick={loginModal.onOpen} label="My reservations" />
+                <MenuItem
+                  onClick={() => router.push("/reservations")}
+                  label="My reservations"
+                />
                 <MenuItem onClick={loginModal.onOpen} label="My properties" />
                 <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />

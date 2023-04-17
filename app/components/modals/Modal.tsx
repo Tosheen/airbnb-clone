@@ -66,7 +66,7 @@ export const Modal = (props: ModalProps) => {
         <div className="relative w-full md:w-4/6 lg:3/6 xl:w-2/5 my-6 mx-auto h-full md:h-auto lg:h-auto">
           <div
             className={classNames(
-              "translate duration-300 h-full",
+              "transition duration-300 h-full",
               showModal
                 ? "translate-y-0 opacity-100"
                 : "translate-y-full opacity-0"

@@ -3,6 +3,7 @@ import getListing from "../../actions/getListing";
 import getCurrentUser from "../../actions/getCurrentUser";
 import { EmptyListings } from "@/app/components/EmptyListings";
 import { ListingItem } from "./ListingItem";
+import getReservations from "@/app/actions/getReservations";
 
 type ListingPage = {
   listingId?: string;
@@ -10,6 +11,9 @@ type ListingPage = {
 
 export default async function ListingPage({ params }: { params: ListingPage }) {
   const listing = await getListing({
+    listingId: params.listingId,
+  });
+  const reservations = await getReservations({
     listingId: params.listingId,
   });
 
@@ -23,5 +27,11 @@ export default async function ListingPage({ params }: { params: ListingPage }) {
     );
   }
 
-  return <ListingItem listing={listing} currentUser={currentUser} />;
+  return (
+    <ListingItem
+      listing={listing}
+      currentUser={currentUser}
+      reservations={reservations}
+    />
+  );
 }
